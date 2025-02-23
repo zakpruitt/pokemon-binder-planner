@@ -1,7 +1,7 @@
 // src/BinderPage.js
 import React from 'react';
 
-function BinderPage({ pageIndex, cards, onSlotClick }) {
+function BinderPage({pageIndex, cards, onSlotClick}) {
     // Define slot dimensions based on card size
     const slotWidth = 245;
     const slotHeight = 342;
@@ -19,7 +19,7 @@ function BinderPage({ pageIndex, cards, onSlotClick }) {
 
     return (
         <div>
-            <h2 style={{ textAlign: 'center' }}>Page {pageIndex + 1}</h2>
+            <h2 style={{textAlign: 'center'}}>Page {pageIndex + 1}</h2>
             {/* Set a fixed width for the grid container and reduce gap */}
             <div
                 style={{
@@ -40,7 +40,7 @@ function BinderPage({ pageIndex, cards, onSlotClick }) {
                             <img
                                 src={card.images.large}
                                 alt={card.name}
-                                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                                style={{width: '100%', height: '100%', objectFit: 'contain'}}
                             />
                         ) : (
                             <p>Empty</p>
