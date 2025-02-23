@@ -21,37 +21,61 @@ function App() {
     };
 
     return (
-        // Outer container that centers the layout
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {/* Inner container with a max width, laid out horizontally */}
-            <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px', padding: '20px' }}>
+            <div
+                style={{
+                    maxWidth: '1200px',
+                    width: '100%',
+                    display: 'flex',
+                    gap: '20px',
+                    padding: '20px',
+                }}
+            >
+                {/* LEFT: Binder pages + Add Page button */}
+                <div style={{ flex: '3', display: 'flex', flexDirection: 'column' }}>
+                    {/* Pages scroll area */}
+                    <div
+                        style={{
+                            flex: 1,
+                            overflowY: 'auto',
+                            maxHeight: 'calc(100vh - 120px)',
+                        }}
+                    >
+                        {pages.map((page, pageIndex) => (
+                            <BinderPage
+                                key={pageIndex}
+                                pageIndex={pageIndex}
+                                cards={page}
+                                onSlotClick={(slotIndex) =>
+                                    setSelectedSlot({ pageIndex, slotIndex })
+                                }
+                            />
+                        ))}
+                    </div>
 
-                {/* Left side: Binder Pages */}
-                <div style={{ flex: '3' }}>
-                    {pages.map((page, pageIndex) => (
-                        <BinderPage
-                            key={pageIndex}
-                            pageIndex={pageIndex}
-                            cards={page}
-                            onSlotClick={(slotIndex) => setSelectedSlot({ pageIndex, slotIndex })}
-                        />
-                    ))}
-                    <button onClick={addPage}>Add Page</button>
+                    {/* Button below scroll area, so it won't overlap */}
+                    <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                        <button onClick={addPage}>Add Page</button>
+                    </div>
                 </div>
 
-                {/* Right side: Sticky Search Panel */}
+                {/* RIGHT: Sticky Search Panel */}
                 <div
                     style={{
                         flex: '1',
                         position: 'sticky',
-                        top: '10px',
-                        alignSelf: 'flex-start', // ensures sticky works relative to the parent
+                        top: '20px',
+                        alignSelf: 'flex-start',
                     }}
                 >
                     <SearchPanel
                         onCardSelect={(card) => {
                             if (selectedSlot) {
-                                updateSlot(selectedSlot.pageIndex, selectedSlot.slotIndex, card);
+                                updateSlot(
+                                    selectedSlot.pageIndex,
+                                    selectedSlot.slotIndex,
+                                    card
+                                );
                                 setSelectedSlot(null);
                             } else {
                                 alert('Please click a binder slot first.');
