@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function SearchPanel({ onCardSelect }) {
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('(rarity:"Illustration Rare" OR rarity:"Special Illustration Rare") AND set.id:sv1');
     const [results, setResults] = useState([]);
 
     // Perform a search against the Pokémon TCG API
