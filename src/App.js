@@ -1,5 +1,5 @@
 // src/App.js
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import BinderPage from './BinderPage';
 import SearchPanel from './SearchPanel';
 
@@ -21,18 +21,16 @@ function App() {
     };
 
     return (
-        // Outer container: center the app with flexbox
-        <div style={{padding: '20px', display: 'flex', justifyContent: 'center'}}>
-            {/* Inner container: max width + horizontal layout */}
-            <div style={{maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px'}}>
+        <div style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px' }}>
                 {/* Binder Section */}
-                <div style={{flex: '3'}}>
+                <div style={{ flex: '3' }}>
                     {pages.map((page, pageIndex) => (
                         <BinderPage
                             key={pageIndex}
                             pageIndex={pageIndex}
                             cards={page}
-                            onSlotClick={(slotIndex) => setSelectedSlot({pageIndex, slotIndex})}
+                            onSlotClick={(slotIndex) => setSelectedSlot({ pageIndex, slotIndex })}
                         />
                     ))}
                     <button onClick={addPage}>Add Page</button>
@@ -44,8 +42,6 @@ function App() {
                         flex: '1',
                         position: 'sticky',
                         top: '20px',
-                        height: 'calc(100vh - 40px)', // minus top/bottom padding
-                        overflowY: 'auto',
                     }}
                 >
                     <SearchPanel
