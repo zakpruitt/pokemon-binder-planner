@@ -21,9 +21,9 @@ function App() {
     };
 
     return (
-        // Outer container centers the whole app
+        // Outer container: center the app with flexbox
         <div style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
-            {/* Inner container with fixed maxWidth */}
+            {/* Inner container: max width + horizontal layout */}
             <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px' }}>
                 {/* Binder Section */}
                 <div style={{ flex: '3' }}>
@@ -38,15 +38,23 @@ function App() {
                     <button onClick={addPage}>Add Page</button>
                 </div>
 
-                {/* Search Panel Section */}
-                <div style={{ flex: '1' }}>
+                {/* Sticky Search Panel Section */}
+                <div
+                    style={{
+                        flex: '1',
+                        position: 'sticky',
+                        top: '20px',
+                        height: 'calc(100vh - 40px)', // minus top/bottom padding
+                        overflowY: 'auto',
+                    }}
+                >
                     <SearchPanel
                         onCardSelect={(card) => {
                             if (selectedSlot) {
                                 updateSlot(selectedSlot.pageIndex, selectedSlot.slotIndex, card);
                                 setSelectedSlot(null);
                             } else {
-                                alert("Please click a binder slot first.");
+                                alert('Please click a binder slot first.');
                             }
                         }}
                     />
