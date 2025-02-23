@@ -21,9 +21,12 @@ function App() {
     };
 
     return (
-        <div style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
-            <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px' }}>
-                {/* Binder Section */}
+        // Outer container that centers the layout
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {/* Inner container with a max width, laid out horizontally */}
+            <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', gap: '20px', padding: '20px' }}>
+
+                {/* Left side: Binder Pages */}
                 <div style={{ flex: '3' }}>
                     {pages.map((page, pageIndex) => (
                         <BinderPage
@@ -36,12 +39,13 @@ function App() {
                     <button onClick={addPage}>Add Page</button>
                 </div>
 
-                {/* Sticky Search Panel Section */}
+                {/* Right side: Sticky Search Panel */}
                 <div
                     style={{
                         flex: '1',
                         position: 'sticky',
-                        top: '20px',
+                        top: '10px',
+                        alignSelf: 'flex-start', // ensures sticky works relative to the parent
                     }}
                 >
                     <SearchPanel
