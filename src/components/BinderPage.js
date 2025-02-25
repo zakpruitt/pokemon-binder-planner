@@ -1,6 +1,6 @@
 // src/BinderPage.js
-import React, { useState } from 'react';
-import '../styles/BinderPage.css';
+import React, { useState } from "react";
+import "../styles/BinderPage.css";
 
 function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot, addPage, deletePage, calculatePageValue }) {
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
@@ -22,26 +22,31 @@ function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot, addPage, dele
             </div>
 
             <div className="binder-grid">
-                {cards.map((card, idx) => (
-                    <div
-                        key={idx}
-                        className={`binder-slot ${selectedSlot === idx ? 'selected' : ''}`}
-                        onClick={() => onSlotClick(idx)}
-                        onMouseEnter={() => setHoveredCardIndex(idx)}
-                        onMouseLeave={() => setHoveredCardIndex(null)}
-                    >
-                        {card ? (
-                            <>
-                                <img src={card.images.small} alt={card.name} />
-                                {hoveredCardIndex === idx && card.tcgplayer?.prices?.holofoil?.market && (
-                                    <div className="card-price">${card.tcgplayer.prices.holofoil.market.toFixed(2)}</div>
-                                )}
-                            </>
-                        ) : (
-                            <p>Empty</p>
-                        )}
-                    </div>
-                ))}
+                {cards.map((card, idx) => {
+                    const isHovered = hoveredCardIndex === idx;
+                    const marketPrice = card?.tcgplayer?.prices?.holofoil?.market;
+
+                    return (
+                        <div
+                            key={idx}
+                            className={`binder-slot ${selectedSlot === idx ? "selected" : ""}`}
+                            onClick={() => onSlotClick(idx)}
+                            onMouseEnter={() => setHoveredCardIndex(idx)}
+                            onMouseLeave={() => setHoveredCardIndex(null)}
+                        >
+                            {card ? (
+                                <>
+                                    <img src={card.images.small} alt={card.name} />
+                                    {isHovered && marketPrice && (
+                                        <div className="card-price">${marketPrice.toFixed(2)}</div>
+                                    )}
+                                </>
+                            ) : (
+                                <p>Empty</p>
+                            )}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
