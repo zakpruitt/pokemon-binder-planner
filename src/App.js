@@ -86,6 +86,26 @@ function App() {
         }
     };
 
+    const printBinder = () => {
+        const printArea = document.getElementById("printable-binder");
+        const scrollContainer = document.querySelector(".pages-scroll-area");
+
+        if (!printArea) {
+            alert("Error: Printable binder section not found.");
+            return;
+        }
+
+        // Temporarily disable scrolling to allow full rendering
+        const originalOverflow = scrollContainer.style.overflow;
+        scrollContainer.style.overflow = "visible";
+
+        // Trigger print
+        window.print();
+
+        // Restore original scrolling behavior after printing
+        scrollContainer.style.overflow = originalOverflow;
+    };
+
     return (
         <>
             <BackgroundAnimation />
@@ -93,6 +113,7 @@ function App() {
                 <div className="main-layout">
                     <div className="left-section">
                         <div className="pages-scroll-area">
+                            <div id="printable-binder">
                             {pages.map((page, pageIndex) => (
                                 <BinderPage
                                     key={pageIndex}
@@ -111,10 +132,12 @@ function App() {
                                     calculatePageValue={() => calculatePageValue(pageIndex)}
                                 />
                             ))}
+                            </div>
                         </div>
                         <div className="controls">
                             <button onClick={exportBinder}>Export Binder</button>
                             <button onClick={importBinder}>Import Binder</button>
+                            <button onClick={printBinder}>Print Binder</button>
                         </div>
                     </div>
                     <div className="right-search-panel">

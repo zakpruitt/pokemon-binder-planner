@@ -50,3 +50,41 @@
 .controls button:hover {
     background-color: #2980b9;
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printable-binder, #printable-binder * {
+        visibility: visible;
+    }
+
+    #printable-binder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    /* Make sure the entire binder prints, even if it's normally scrollable */
+    .pages-scroll-area {
+        overflow: visible !important;
+        max-height: unset !important;
+        height: auto !important;
+    }
+
+    /* Ensure each binder page prints fully before breaking */
+    .binder-page-container {
+        page-break-after: always;
+    }
+
+    button {
+        display: none !important;
+    }
+
+    /* Specifically hide the buttons in the binder page */
+    .page-buttons {
+        display: none !important;
+    }
+}
