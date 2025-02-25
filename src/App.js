@@ -6,10 +6,13 @@ import BackgroundAnimation from './BackgroundAnimation';
 import './App.css';
 
 function App() {
-    const [pages, setPages] = useState([Array(9).fill(null)]);
+    // Start with 2 pages instead of 1
+    const [pages, setPages] = useState([
+        Array(9).fill(null),
+        Array(9).fill(null)
+    ]);
     const [selectedSlot, setSelectedSlot] = useState(null);
 
-    // Function to insert a new page at a specific index
     const addPageAt = (index) => {
         const newPages = [...pages];
         newPages.splice(index + 1, 0, Array(9).fill(null)); // Insert new page after the given index
@@ -25,7 +28,6 @@ function App() {
         setPages(newPages);
     };
 
-    // Export the current binder as a JSON string to the clipboard
     const exportBinder = () => {
         const binderData = pages.map(page =>
             page.map(card =>
@@ -43,14 +45,12 @@ function App() {
             .catch((err) => alert("Export failed: " + err));
     };
 
-    // Import binder data by prompting the user for a JSON string
     const importBinder = () => {
         const data = prompt("Paste your binder data:");
         if (data) {
             try {
                 const importedPages = JSON.parse(data);
 
-                // Transform imported data into a compatible format
                 const formattedPages = importedPages.map(page =>
                     page.map(card =>
                         card
@@ -73,11 +73,9 @@ function App() {
 
     return (
         <>
-            {/* Animated background */}
             <BackgroundAnimation />
             <div className="app-container">
                 <div className="main-layout">
-                    {/* LEFT: Binder pages + Import/Export buttons */}
                     <div className="left-section">
                         <div className="pages-scroll-area">
                             {pages.map((page, pageIndex) => (
@@ -93,17 +91,15 @@ function App() {
                                     onSlotClick={(slotIndex) =>
                                         setSelectedSlot({ pageIndex, slotIndex })
                                     }
-                                    addPage={() => addPageAt(pageIndex)} // Pass function to BinderPage
+                                    addPage={() => addPageAt(pageIndex)}
                                 />
                             ))}
                         </div>
-                        {/* Controls below pages */}
                         <div className="controls">
                             <button onClick={exportBinder}>Export Binder</button>
                             <button onClick={importBinder}>Import Binder</button>
                         </div>
                     </div>
-                    {/* RIGHT: Sticky Search Panel */}
                     <div className="right-search-panel">
                         <SearchPanel
                             onCardSelect={(card) => {
