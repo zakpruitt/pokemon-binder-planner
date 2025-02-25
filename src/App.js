@@ -22,27 +22,54 @@ function App() {
         setPages(newPages);
     };
 
-    // Export the current binder as a JSON string to the clipboard
+// Export the current binder as a JSON string to the clipboard
     const exportBinder = () => {
-        const binderData = JSON.stringify(pages);
-        navigator.clipboard.writeText(binderData)
+        const binderData = pages.map(page =>
+            page.map(card =>
+                card ? {
+                    name: card.name,
+                    set: card.set.name,  // Include the set name
+                    image: card.images.small,
+                    price: card.tcgplayer?.prices?.holofoil?.market || "N/A"
+                } : null
+            )
+        );
+
+        navigator.clipboard.writeText(JSON.stringify(binderData))
             .then(() => alert("Binder exported to clipboard!"))
             .catch((err) => alert("Export failed: " + err));
     };
 
-    // Import binder data by prompting the user for a JSON string
+// Import binder data by prompting the user for a JSON string
     const importBinder = () => {
         const data = prompt("Paste your binder data:");
         if (data) {
             try {
                 const importedPages = JSON.parse(data);
-                // Optionally: validate the structure of importedPages here
-                setPages(importedPages);
+
+                // Transform imported data into a compatible format
+                const formattedPages = importedPages.map(page =>
+                    page.map(card =>
+                        card
+                            ? {
+                                name: card.name,
+                                set: card.set,
+                                images: { small: card.image }, // Ensure it's nested under `images`
+                                tcgplayer: { prices: { holofoil: { market: card.price } } } // Reformat price structure
+                            }
+                            : null
+                    )
+                );
+
+                setPages(formattedPages);
             } catch (e) {
                 alert("Invalid data! Please check your input.");
             }
         }
     };
+
+
+
 
     return (
         <>
