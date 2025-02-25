@@ -116,7 +116,7 @@ function App() {
                                         pageIndex={pageIndex}
                                         cards={page}
                                         selectedSlot={selectedSlot?.pageIndex === pageIndex ? selectedSlot.slotIndex : null}
-                                        onSlotClick={(slotIndex) => setSelectedSlot({ pageIndex, slotIndex })}
+                                        onSlotClick={(slotIndex) => setSelectedSlot({pageIndex, slotIndex})}
                                         addPage={() => addPageAt(pageIndex)}
                                         deletePage={() => deletePageAt(pageIndex)}
                                         calculatePageValue={() => calculatePageValue(page)}
@@ -128,6 +128,11 @@ function App() {
                             <button onClick={exportBinder}>Export Binder</button>
                             <button onClick={importBinder}>Import Binder</button>
                             <button onClick={printBinder}>Print Binder</button>
+                            <button
+                                onClick={() => window.open("https://github.com/zakpruitt/pokemon-binder-planner", "_blank")}
+                            >
+                                GitHub Repo
+                            </button>
                         </div>
                     </div>
                     <div className="right-search-panel">
