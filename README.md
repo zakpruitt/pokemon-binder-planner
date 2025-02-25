@@ -1,5 +1,6 @@
 # 🃏 Pokemon Binder Planner
 
+wip wip wip 
 A sleek and intuitive web app for building your Pokémon card collection! Plan and track your binder with a simple, clean interface.
 
 ![image](https://github.com/user-attachments/assets/8a780ef6-88ab-41c7-bd86-83fef352723c)
