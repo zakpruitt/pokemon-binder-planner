@@ -1,6 +1,6 @@
 // src/BinderPage.js
 import React, { useState } from 'react';
-import './BinderPage.css';
+import '../styles/BinderPage.css';
 
 function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot, addPage, deletePage, calculatePageValue }) {
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);

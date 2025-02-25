@@ -1,6 +1,6 @@
 // src/SearchPanel.js
 import React, { useState } from 'react';
-import './SearchPanel.css';
+import '../styles/SearchPanel.css';
 
 const AVAILABLE_RARITIES = [
     '',

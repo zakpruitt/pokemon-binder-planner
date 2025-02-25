@@ -1,9 +1,9 @@
 // src/App.js
 import React, { useState } from 'react';
-import BinderPage from './BinderPage';
-import SearchPanel from './SearchPanel';
-import BackgroundAnimation from './BackgroundAnimation';
-import './App.css';
+import BinderPage from './components/BinderPage';
+import SearchPanel from './components/SearchPanel';
+import BackgroundAnimation from './components/BackgroundAnimation';
+import './styles/App.css';
 
 function App() {
     const [pages, setPages] = useState([

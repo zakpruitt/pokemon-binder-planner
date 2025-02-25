@@ -1,7 +1,7 @@
 // src/BackgroundAnimation.js
 import React, { useEffect, useState } from 'react';
-import './BackgroundAnimation.css';
-import {SPRITE_URLS} from "./SpriteUrls";
+import '../styles/BackgroundAnimation.css';
+import {SPRITE_URLS} from "../utils/SpriteUrls";
 
 function BackgroundAnimation() {
     const [spriteUrl, setSpriteUrl] = useState('');
