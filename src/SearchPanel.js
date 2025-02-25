@@ -40,6 +40,7 @@ function SearchPanel({ onCardSelect }) {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [orderBy, setOrderBy] = useState('set.id,number');
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     // Filter sets by user input (matching ID or name)
     const filteredSets = AVAILABLE_SETS.filter(
@@ -64,6 +65,7 @@ function SearchPanel({ onCardSelect }) {
 
     const handleSearch = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const q = buildQueryString();
         let apiUrl = 'https://api.pokemontcg.io/v2/cards';
         if (q) {
@@ -83,6 +85,8 @@ function SearchPanel({ onCardSelect }) {
             setResults(data.data || []);
         } catch (error) {
             console.error('Error fetching cards:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -175,25 +179,28 @@ function SearchPanel({ onCardSelect }) {
                 <button type="submit">Search</button>
             </form>
 
-            {/* Search Results */}
-            <div className="search-results">
-                {results.map((card) => (
-                    <div
-                        key={card.id}
-                        className="search-result-item"
-                        onClick={() => onCardSelect(card)}
-                    >
-                        <img
-                            src={card.images.small}
-                            alt={card.name}
-                        />
-                        <div className="result-details">
-                            <strong>{card.name}</strong>
-                            <p>{card.number} - {card.rarity}</p>
+            {/* Loading indicator or Search Results */}
+            {loading ? (
+                <div className="loading-indicator">
+                    <div className="spinner"></div>
+                </div>
+            ) : (
+                <div className="search-results">
+                    {results.map((card) => (
+                        <div
+                            key={card.id}
+                            className="search-result-item"
+                            onClick={() => onCardSelect(card)}
+                        >
+                            <img src={card.images.small} alt={card.name} />
+                            <div className="result-details">
+                                <strong>{card.name}</strong>
+                                <p>{card.number} - {card.rarity}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
