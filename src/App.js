@@ -1,92 +1,91 @@
 // src/App.js
-import React, { useState } from 'react';
-import BinderPage from './components/BinderPage';
-import SearchPanel from './components/SearchPanel';
-import BackgroundAnimation from './components/BackgroundAnimation';
-import './styles/App.css';
+import React, { useState, useCallback } from "react";
+import BinderPage from "./components/BinderPage";
+import SearchPanel from "./components/SearchPanel";
+import BackgroundAnimation from "./components/BackgroundAnimation";
+import "./styles/App.css";
+
+const INITIAL_PAGE = () => Array(9).fill(null);
 
 function App() {
-    const [pages, setPages] = useState([
-        Array(9).fill(null),
-        Array(9).fill(null)
-    ]);
+    const [pages, setPages] = useState([INITIAL_PAGE(), INITIAL_PAGE()]);
     const [selectedSlot, setSelectedSlot] = useState(null);
 
-    const addPageAt = (index) => {
-        const newPages = [...pages];
-        newPages.splice(index + 1, 0, Array(9).fill(null));
-        setPages(newPages);
-    };
+    const addPageAt = useCallback((index) => {
+        setPages((prevPages) => [
+            ...prevPages.slice(0, index + 1),
+            INITIAL_PAGE(),
+            ...prevPages.slice(index + 1),
+        ]);
+    }, []);
 
-    const deletePageAt = (index) => {
-        if (pages.length > 1) {
-            const newPages = pages.filter((_, i) => i !== index);
-            setPages(newPages);
-        } else {
-            alert("You must have at least one page.");
-        }
-    };
-
-    const updateSlot = (pageIndex, slotIndex, card) => {
-        const newPages = pages.map((page, pIndex) =>
-            pIndex === pageIndex
-                ? page.map((slot, sIndex) => (sIndex === slotIndex ? card : slot))
-                : page
+    const deletePageAt = useCallback((index) => {
+        setPages((prevPages) =>
+            prevPages.length > 1 ? prevPages.filter((_, i) => i !== index) : prevPages
         );
-        setPages(newPages);
-    };
+    }, []);
 
-    const calculatePageValue = (pageIndex) => {
-        return pages[pageIndex].reduce((total, card) => {
-            const price = card?.tcgplayer?.prices?.holofoil?.market;
-            return total + (price ? price : 0);
-        }, 0).toFixed(2);
-    };
+    const updateSlot = useCallback((pageIndex, slotIndex, card) => {
+        setPages((prevPages) =>
+            prevPages.map((page, pIndex) =>
+                pIndex === pageIndex
+                    ? page.map((slot, sIndex) => (sIndex === slotIndex ? card : slot))
+                    : page
+            )
+        );
+    }, []);
 
-    const exportBinder = () => {
-        const binderData = pages.map(page =>
-            page.map(card =>
-                card ? {
-                    name: card.name,
-                    set: card.set,
-                    image: card.images.small,
-                    price: card.tcgplayer?.prices?.holofoil?.market || "N/A"
-                } : null
+    const calculatePageValue = useCallback((page) =>
+            page.reduce(
+                (total, card) =>
+                    total + (card?.tcgplayer?.prices?.holofoil?.market || 0),
+                0
+            ).toFixed(2),
+        []);
+
+    const exportBinder = useCallback(() => {
+        const binderData = pages.map((page) =>
+            page.map((card) =>
+                card
+                    ? {
+                        name: card.name,
+                        set: card.set,
+                        image: card.images.small,
+                        price: card.tcgplayer?.prices?.holofoil?.market || "N/A",
+                    }
+                    : null
             )
         );
 
         navigator.clipboard.writeText(JSON.stringify(binderData))
             .then(() => alert("Binder exported to clipboard!"))
             .catch((err) => alert("Export failed: " + err));
-    };
+    }, [pages]);
 
-    const importBinder = () => {
+    const importBinder = useCallback(() => {
         const data = prompt("Paste your binder data:");
-        if (data) {
-            try {
-                const importedPages = JSON.parse(data);
+        if (!data) return;
 
-                const formattedPages = importedPages.map(page =>
-                    page.map(card =>
-                        card
-                            ? {
-                                name: card.name,
-                                set: card.set,
-                                images: { small: card.image },
-                                tcgplayer: { prices: { holofoil: { market: card.price } } }
-                            }
-                            : null
-                    )
-                );
-
-                setPages(formattedPages);
-            } catch (e) {
-                alert("Invalid data! Please check your input.");
-            }
+        try {
+            const importedPages = JSON.parse(data).map((page) =>
+                page.map((card) =>
+                    card
+                        ? {
+                            name: card.name,
+                            set: card.set,
+                            images: { small: card.image },
+                            tcgplayer: { prices: { holofoil: { market: card.price } } },
+                        }
+                        : null
+                )
+            );
+            setPages(importedPages);
+        } catch {
+            alert("Invalid data! Please check your input.");
         }
-    };
+    }, []);
 
-    const printBinder = () => {
+    const printBinder = useCallback(() => {
         const printArea = document.getElementById("printable-binder");
         const scrollContainer = document.querySelector(".pages-scroll-area");
 
@@ -95,16 +94,13 @@ function App() {
             return;
         }
 
-        // Temporarily disable scrolling to allow full rendering
         const originalOverflow = scrollContainer.style.overflow;
         scrollContainer.style.overflow = "visible";
 
-        // Trigger print
         window.print();
 
-        // Restore original scrolling behavior after printing
         scrollContainer.style.overflow = originalOverflow;
-    };
+    }, []);
 
     return (
         <>
@@ -114,24 +110,18 @@ function App() {
                     <div className="left-section">
                         <div className="pages-scroll-area">
                             <div id="printable-binder">
-                            {pages.map((page, pageIndex) => (
-                                <BinderPage
-                                    key={pageIndex}
-                                    pageIndex={pageIndex}
-                                    cards={page}
-                                    selectedSlot={
-                                        selectedSlot && selectedSlot.pageIndex === pageIndex
-                                            ? selectedSlot.slotIndex
-                                            : null
-                                    }
-                                    onSlotClick={(slotIndex) =>
-                                        setSelectedSlot({ pageIndex, slotIndex })
-                                    }
-                                    addPage={() => addPageAt(pageIndex)}
-                                    deletePage={() => deletePageAt(pageIndex)}
-                                    calculatePageValue={() => calculatePageValue(pageIndex)}
-                                />
-                            ))}
+                                {pages.map((page, pageIndex) => (
+                                    <BinderPage
+                                        key={pageIndex}
+                                        pageIndex={pageIndex}
+                                        cards={page}
+                                        selectedSlot={selectedSlot?.pageIndex === pageIndex ? selectedSlot.slotIndex : null}
+                                        onSlotClick={(slotIndex) => setSelectedSlot({ pageIndex, slotIndex })}
+                                        addPage={() => addPageAt(pageIndex)}
+                                        deletePage={() => deletePageAt(pageIndex)}
+                                        calculatePageValue={() => calculatePageValue(page)}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <div className="controls">
@@ -144,14 +134,10 @@ function App() {
                         <SearchPanel
                             onCardSelect={(card) => {
                                 if (selectedSlot) {
-                                    updateSlot(
-                                        selectedSlot.pageIndex,
-                                        selectedSlot.slotIndex,
-                                        card
-                                    );
+                                    updateSlot(selectedSlot.pageIndex, selectedSlot.slotIndex, card);
                                     setSelectedSlot(null);
                                 } else {
-                                    alert('Please click a binder slot first.');
+                                    alert("Please click a binder slot first.");
                                 }
                             }}
                         />
