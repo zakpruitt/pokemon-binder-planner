@@ -36,6 +36,13 @@ function App() {
         setPages(newPages);
     };
 
+    const calculatePageValue = (pageIndex) => {
+        return pages[pageIndex].reduce((total, card) => {
+            const price = card?.tcgplayer?.prices?.holofoil?.market;
+            return total + (price ? price : 0);
+        }, 0).toFixed(2);
+    };
+
     const exportBinder = () => {
         const binderData = pages.map(page =>
             page.map(card =>
@@ -101,6 +108,7 @@ function App() {
                                     }
                                     addPage={() => addPageAt(pageIndex)}
                                     deletePage={() => deletePageAt(pageIndex)}
+                                    calculatePageValue={() => calculatePageValue(pageIndex)}
                                 />
                             ))}
                         </div>
