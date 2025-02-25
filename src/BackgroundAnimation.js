@@ -1,11 +1,7 @@
 // src/BackgroundAnimation.js
 import React, { useEffect, useState } from 'react';
 import './BackgroundAnimation.css';
-
-const SPRITE_URLS = [
-    'https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/venusaur.png',
-    // Add more URLs as desired
-];
+import {SPRITE_URLS} from "./SpriteUrls";
 
 function BackgroundAnimation() {
     const [spriteUrl, setSpriteUrl] = useState('');

@@ -8,8 +8,8 @@
     z-index: -1; /* behind everything */
     opacity: 0.23; /* subtle effect */
     background-repeat: repeat;
-    background-size: 60px 60px; /* keep sprites small */
-    animation: moveBackground 60s linear infinite; /* faster animation */
+    background-size: 68px 56px;
+    animation: moveBackground 40s linear infinite; /* faster animation */
 }
 
 @keyframes moveBackground {
@@ -17,6 +17,6 @@
         background-position: 0 0;
     }
     to {
-        background-position: 500px 500px; /* shorter distance for a livelier feel */
+        background-position: 680px 560px;
     }
 }
