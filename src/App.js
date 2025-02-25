@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import BinderPage from './BinderPage';
 import SearchPanel from './SearchPanel';
+import './App.css';
 
 function App() {
     const [pages, setPages] = useState([Array(9).fill(null)]);
@@ -21,26 +22,12 @@ function App() {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div
-                style={{
-                    maxWidth: '1200px',
-                    width: '100%',
-                    display: 'flex',
-                    gap: '20px',
-                    padding: '20px',
-                }}
-            >
+        <div className="app-container">
+            <div className="main-layout">
                 {/* LEFT: Binder pages + Add Page button */}
-                <div style={{ flex: '3', display: 'flex', flexDirection: 'column' }}>
+                <div className="left-section">
                     {/* Pages scroll area */}
-                    <div
-                        style={{
-                            flex: 1,
-                            overflowY: 'auto',
-                            maxHeight: 'calc(100vh - 120px)',
-                        }}
-                    >
+                    <div className="pages-scroll-area">
                         {pages.map((page, pageIndex) => (
                             <BinderPage
                                 key={pageIndex}
@@ -53,21 +40,14 @@ function App() {
                         ))}
                     </div>
 
-                    {/* Button below scroll area, so it won't overlap */}
-                    <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                    {/* Button below scroll area */}
+                    <div className="page-add-button">
                         <button onClick={addPage}>Add Page</button>
                     </div>
                 </div>
 
                 {/* RIGHT: Sticky Search Panel */}
-                <div
-                    style={{
-                        flex: '1',
-                        position: 'sticky',
-                        top: '20px',
-                        alignSelf: 'flex-start',
-                    }}
-                >
+                <div className="right-search-panel">
                     <SearchPanel
                         onCardSelect={(card) => {
                             if (selectedSlot) {

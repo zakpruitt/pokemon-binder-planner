@@ -1,38 +1,37 @@
-.App {
-    text-align: center;
+.app-container {
+    display: flex;
+    justify-content: center;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.main-layout {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
+.left-section {
+    flex: 3;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
 }
 
-.App-link {
-    color: #61dafb;
+.pages-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    /* So the binder pages won't exceed the viewport */
+    max-height: calc(100vh - 120px);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.page-add-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.right-search-panel {
+    flex: 1;
+    position: sticky;
+    top: 30px;
+    align-self: flex-start;
 }
