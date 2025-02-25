@@ -4,7 +4,7 @@
        but maintain a ~5:7 ratio (w:h). */
     aspect-ratio: 5 / 7;           /* tall rectangle */
     max-width: 90vw;               /* up to 90% of viewport width */
-    max-height: 90vh;              /* up to 90% of viewport height */
+    max-height: 87vh;              /* up to 90% of viewport height */
 
     width: auto;    /* so aspect-ratio drives width if height is limiting */
     height: auto;   /* or vice versa */
