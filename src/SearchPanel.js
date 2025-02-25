@@ -1,4 +1,6 @@
+// src/SearchPanel.js
 import React, { useState } from 'react';
+import './SearchPanel.css';
 
 const AVAILABLE_RARITIES = [
     '',
@@ -100,59 +102,28 @@ function SearchPanel({ onCardSelect }) {
     };
 
     return (
-        <div
-            style={{
-                // Let this container auto-size
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                padding: '15px',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <h2 style={{ margin: '0 0 10px', fontSize: '1.2rem', textAlign: 'center' }}>
-                Search Cards
-            </h2>
+        <div className="search-panel">
+            <h2>Search Cards</h2>
 
             {/* Query Builder Form */}
-            <form
-                onSubmit={handleSearch}
-                style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}
-            >
+            <form onSubmit={handleSearch}>
                 {/* Card Name */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontWeight: '600', marginBottom: '4px', fontSize: '0.9rem' }}>
-                        Card Name
-                    </label>
+                <div className="form-group">
+                    <label>Card Name</label>
                     <input
                         type="text"
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                         placeholder="e.g. Pikachu"
-                        style={{
-                            padding: '6px 8px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            fontSize: '0.9rem',
-                        }}
                     />
                 </div>
 
                 {/* Rarity */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontWeight: '600', marginBottom: '4px', fontSize: '0.9rem' }}>
-                        Rarity
-                    </label>
+                <div className="form-group">
+                    <label>Rarity</label>
                     <select
                         value={rarity}
                         onChange={(e) => setRarity(e.target.value)}
-                        style={{
-                            padding: '6px 8px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            fontSize: '0.9rem',
-                        }}
                     >
                         {AVAILABLE_RARITIES.map((r) => (
                             <option key={r} value={r}>
@@ -163,49 +134,22 @@ function SearchPanel({ onCardSelect }) {
                 </div>
 
                 {/* Set Autocomplete */}
-                <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontWeight: '600', marginBottom: '4px', fontSize: '0.9rem' }}>
-                        Set
-                    </label>
+                <div className="form-group set-container">
+                    <label>Set</label>
                     <input
                         type="text"
                         value={setSearch}
                         onChange={handleSetSearchChange}
                         placeholder="Type set ID or name"
-                        style={{
-                            padding: '6px 8px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            fontSize: '0.9rem',
-                        }}
                     />
                     {showSuggestions && filteredSets.length > 0 && (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: '58px',
-                                left: 0,
-                                right: 0,
-                                backgroundColor: '#fff',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                zIndex: 10,
-                                maxHeight: '150px',
-                                overflowY: 'auto',
-                                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                            }}
-                        >
+                        <div className="set-suggestions">
                             {filteredSets.map((s) => (
                                 <div
                                     key={s.id}
                                     onMouseDown={(e) => e.preventDefault()}
                                     onClick={() => handleSetSuggestionClick(s)}
-                                    style={{
-                                        padding: '6px 8px',
-                                        cursor: 'pointer',
-                                        fontSize: '0.9rem',
-                                        borderBottom: '1px solid #eee',
-                                    }}
+                                    className="suggestion"
                                 >
                                     <strong>{s.id}</strong> — {s.name}
                                 </div>
@@ -215,19 +159,11 @@ function SearchPanel({ onCardSelect }) {
                 </div>
 
                 {/* Order By */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontWeight: '600', marginBottom: '4px', fontSize: '0.9rem' }}>
-                        Order By
-                    </label>
+                <div className="form-group">
+                    <label>Order By</label>
                     <select
                         value={orderBy}
                         onChange={(e) => setOrderBy(e.target.value)}
-                        style={{
-                            padding: '6px 8px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            fontSize: '0.9rem',
-                        }}
                     >
                         <option value="set.id,number">Set + Number</option>
                         <option value="number">Number</option>
@@ -236,55 +172,24 @@ function SearchPanel({ onCardSelect }) {
                 </div>
 
                 {/* Search Button */}
-                <button
-                    type="submit"
-                    style={{
-                        padding: '8px 12px',
-                        borderRadius: '4px',
-                        border: 'none',
-                        backgroundColor: '#007bff',
-                        color: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '0.9rem',
-                        marginTop: '4px',
-                    }}
-                >
-                    Search
-                </button>
+                <button type="submit">Search</button>
             </form>
 
             {/* Search Results */}
-            {/* Constrain only the results area, so the panel doesn't overflow the screen */}
-            <div
-                style={{
-                    maxHeight: '60vh', // adjust as desired
-                    overflowY: 'auto',
-                    marginTop: '6px',
-                }}
-            >
+            <div className="search-results">
                 {results.map((card) => (
                     <div
                         key={card.id}
-                        style={{
-                            display: 'flex',
-                            marginBottom: '8px',
-                            cursor: 'pointer',
-                            backgroundColor: '#f9f9f9',
-                            borderRadius: '4px',
-                            border: '1px solid #eee',
-                            padding: '6px 8px',
-                            alignItems: 'center',
-                        }}
+                        className="search-result-item"
                         onClick={() => onCardSelect(card)}
                     >
                         <img
                             src={card.images.small}
                             alt={card.name}
-                            style={{ width: '50px', height: 'auto', marginRight: '8px' }}
                         />
-                        <div style={{ fontSize: '0.9rem' }}>
+                        <div className="result-details">
                             <strong>{card.name}</strong>
-                            <p style={{ margin: 0 }}>{card.number} - {card.rarity}</p>
+                            <p>{card.number} - {card.rarity}</p>
                         </div>
                     </div>
                 ))}
