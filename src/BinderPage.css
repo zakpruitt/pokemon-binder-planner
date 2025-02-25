@@ -79,7 +79,7 @@
 /* Center the Page Title */
 .binder-page-title {
     text-align: center;
-    flex-grow: 1; /* Makes sure it stays centered */
+    flex-grow: 1;
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
@@ -87,9 +87,7 @@
 
 /* Add Page button (modern blue style) */
 .add-page-button {
-    position: absolute;
-    right: 20px; /* Align to top right */
-    background-color: #007bff; /* Modern blue */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 50%;
@@ -98,7 +96,6 @@
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,4 +103,35 @@
 
 .add-page-button:hover {
     background-color: #005bb5;
+}
+
+.page-buttons {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+
+.add-page-button:hover {
+    background-color: #005bb5;
+}
+
+.delete-page-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-page-button:hover {
+    background-color: #cc0000;
 }

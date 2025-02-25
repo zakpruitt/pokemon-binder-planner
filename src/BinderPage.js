@@ -2,13 +2,16 @@
 import React from 'react';
 import './BinderPage.css';
 
-function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot, addPage }) {
+function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot, addPage, deletePage }) {
     return (
         <div className="binder-page-container">
-            {/* Page Title with Centered Title and Right-Aligned "+" Button */}
+            {/* Page Header with Title and Buttons */}
             <div className="binder-page-header">
                 <h2 className="binder-page-title">Page {pageIndex + 1}</h2>
-                <button className="add-page-button" onClick={addPage}>+</button>
+                <div className="page-buttons">
+                    <button className="delete-page-button" onClick={deletePage}>−</button>
+                    <button className="add-page-button" onClick={addPage}>+</button>
+                </div>
             </div>
 
             {/* 3x3 Card Grid */}

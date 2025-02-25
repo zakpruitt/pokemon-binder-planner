@@ -6,7 +6,6 @@ import BackgroundAnimation from './BackgroundAnimation';
 import './App.css';
 
 function App() {
-    // Start with 2 pages instead of 1
     const [pages, setPages] = useState([
         Array(9).fill(null),
         Array(9).fill(null)
@@ -15,8 +14,17 @@ function App() {
 
     const addPageAt = (index) => {
         const newPages = [...pages];
-        newPages.splice(index + 1, 0, Array(9).fill(null)); // Insert new page after the given index
+        newPages.splice(index + 1, 0, Array(9).fill(null));
         setPages(newPages);
+    };
+
+    const deletePageAt = (index) => {
+        if (pages.length > 1) {
+            const newPages = pages.filter((_, i) => i !== index);
+            setPages(newPages);
+        } else {
+            alert("You must have at least one page.");
+        }
     };
 
     const updateSlot = (pageIndex, slotIndex, card) => {
@@ -92,6 +100,7 @@ function App() {
                                         setSelectedSlot({ pageIndex, slotIndex })
                                     }
                                     addPage={() => addPageAt(pageIndex)}
+                                    deletePage={() => deletePageAt(pageIndex)}
                                 />
                             ))}
                         </div>
