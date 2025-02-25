@@ -22,9 +22,8 @@
 /* Updated title styling to match the other side */
 .binder-page-container h2 {
     text-align: center;
-    margin: 10px 0;
+    margin: 12px 0;
     flex: 0 0 auto;
-    font-family: sans-serif; /* or your preferred font */
     font-size: 1.5rem;
     color: #333;
 }
