@@ -66,3 +66,44 @@
     height: 100%;
     object-fit: contain;
 }
+
+/* Container for title and add button */
+.binder-page-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+/* Center the Page Title */
+.binder-page-title {
+    text-align: center;
+    flex-grow: 1; /* Makes sure it stays centered */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add Page button (modern blue style) */
+.add-page-button {
+    position: absolute;
+    right: 20px; /* Align to top right */
+    background-color: #007bff; /* Modern blue */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-page-button:hover {
+    background-color: #005bb5;
+}

@@ -9,8 +9,11 @@ function App() {
     const [pages, setPages] = useState([Array(9).fill(null)]);
     const [selectedSlot, setSelectedSlot] = useState(null);
 
-    const addPage = () => {
-        setPages([...pages, Array(9).fill(null)]);
+    // Function to insert a new page at a specific index
+    const addPageAt = (index) => {
+        const newPages = [...pages];
+        newPages.splice(index + 1, 0, Array(9).fill(null)); // Insert new page after the given index
+        setPages(newPages);
     };
 
     const updateSlot = (pageIndex, slotIndex, card) => {
@@ -22,13 +25,13 @@ function App() {
         setPages(newPages);
     };
 
-// Export the current binder as a JSON string to the clipboard
+    // Export the current binder as a JSON string to the clipboard
     const exportBinder = () => {
         const binderData = pages.map(page =>
             page.map(card =>
                 card ? {
                     name: card.name,
-                    set: card.set.name,  // Include the set name
+                    set: card.set,
                     image: card.images.small,
                     price: card.tcgplayer?.prices?.holofoil?.market || "N/A"
                 } : null
@@ -40,7 +43,7 @@ function App() {
             .catch((err) => alert("Export failed: " + err));
     };
 
-// Import binder data by prompting the user for a JSON string
+    // Import binder data by prompting the user for a JSON string
     const importBinder = () => {
         const data = prompt("Paste your binder data:");
         if (data) {
@@ -54,8 +57,8 @@ function App() {
                             ? {
                                 name: card.name,
                                 set: card.set,
-                                images: { small: card.image }, // Ensure it's nested under `images`
-                                tcgplayer: { prices: { holofoil: { market: card.price } } } // Reformat price structure
+                                images: { small: card.image },
+                                tcgplayer: { prices: { holofoil: { market: card.price } } }
                             }
                             : null
                     )
@@ -68,18 +71,14 @@ function App() {
         }
     };
 
-
-
-
     return (
         <>
             {/* Animated background */}
             <BackgroundAnimation />
             <div className="app-container">
                 <div className="main-layout">
-                    {/* LEFT: Binder pages + Add Page and Import/Export buttons */}
+                    {/* LEFT: Binder pages + Import/Export buttons */}
                     <div className="left-section">
-                        {/* Pages scroll area */}
                         <div className="pages-scroll-area">
                             {pages.map((page, pageIndex) => (
                                 <BinderPage
@@ -94,12 +93,12 @@ function App() {
                                     onSlotClick={(slotIndex) =>
                                         setSelectedSlot({ pageIndex, slotIndex })
                                     }
+                                    addPage={() => addPageAt(pageIndex)} // Pass function to BinderPage
                                 />
                             ))}
                         </div>
-                        {/* Buttons below scroll area */}
+                        {/* Controls below pages */}
                         <div className="controls">
-                            <button onClick={addPage}>Add Page</button>
                             <button onClick={exportBinder}>Export Binder</button>
                             <button onClick={importBinder}>Import Binder</button>
                         </div>

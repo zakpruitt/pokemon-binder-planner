@@ -20,13 +20,7 @@
 .pages-scroll-area {
     flex: 1;
     overflow-y: auto;
-    /* So the binder pages won't exceed the viewport */
     max-height: calc(100vh - 120px);
-}
-
-.page-add-button {
-    text-align: center;
-    margin-top: 10px;
 }
 
 .right-search-panel {
@@ -34,23 +28,6 @@
     position: sticky;
     top: 30px;
     align-self: flex-start;
-}
-
-/* App.css additional styles for the Add Page button */
-.page-add-button button {
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    font-size: 0.9rem;
-    margin-top: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.page-add-button button:hover {
-    background-color: #005bb5;
 }
 
 .controls {
