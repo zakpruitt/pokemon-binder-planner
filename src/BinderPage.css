@@ -44,7 +44,7 @@
     border: 1px solid #ccc;
     background-color: #f9f9f9;
     cursor: pointer;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,10 +63,20 @@
 
 /* Ensure images fit nicely */
 .binder-slot img {
-    width: 100%;
-    height: 100%;
+    max-width: 101%;
+    max-height: 101%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
+
 
 /* Container for title and add button */
 .binder-page-header {
