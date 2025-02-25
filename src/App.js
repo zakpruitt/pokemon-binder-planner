@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import BinderPage from './BinderPage';
 import SearchPanel from './SearchPanel';
-import BackgroundAnimation from './BackgroundAnimation';  // Import the new component
+import BackgroundAnimation from './BackgroundAnimation';
 import './App.css';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
 
     return (
         <>
-            {/* Animated background goes here */}
+            {/* Animated background */}
             <BackgroundAnimation />
             <div className="app-container">
                 <div className="main-layout">
@@ -37,6 +37,11 @@ function App() {
                                     key={pageIndex}
                                     pageIndex={pageIndex}
                                     cards={page}
+                                    selectedSlot={
+                                        selectedSlot && selectedSlot.pageIndex === pageIndex
+                                            ? selectedSlot.slotIndex
+                                            : null
+                                    }
                                     onSlotClick={(slotIndex) =>
                                         setSelectedSlot({ pageIndex, slotIndex })
                                     }

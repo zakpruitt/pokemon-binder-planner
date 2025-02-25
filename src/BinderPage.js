@@ -2,7 +2,7 @@
 import React from 'react';
 import './BinderPage.css';
 
-function BinderPage({ pageIndex, cards, onSlotClick }) {
+function BinderPage({ pageIndex, cards, onSlotClick, selectedSlot }) {
     return (
         <div className="binder-page-container">
             <h2>Page {pageIndex + 1}</h2>
@@ -10,7 +10,7 @@ function BinderPage({ pageIndex, cards, onSlotClick }) {
                 {cards.map((card, idx) => (
                     <div
                         key={idx}
-                        className="binder-slot"
+                        className={`binder-slot ${selectedSlot === idx ? 'selected' : ''}`}
                         onClick={() => onSlotClick(idx)}
                     >
                         {card ? (
