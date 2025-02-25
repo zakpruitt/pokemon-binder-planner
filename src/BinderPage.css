@@ -1,56 +1,63 @@
 /* BinderPage.css */
 .binder-page-container {
-    /* Let the container scale up to fill the viewport,
-       but maintain a ~5:7 ratio (w:h). */
-    aspect-ratio: 5 / 7;           /* tall rectangle */
-    max-width: 90vw;               /* up to 90% of viewport width */
-    max-height: 87vh;              /* up to 90% of viewport height */
-
-    width: auto;    /* so aspect-ratio drives width if height is limiting */
-    height: auto;   /* or vice versa */
-
-    margin: 0 auto 20px;           /* center horizontally, add bottom spacing */
-    border: 1px solid #ccc;        /* optional border to see the page outline */
+    /* Maintain the 5:7 ratio */
+    aspect-ratio: 5 / 7;
+    max-width: 90vw;
+    max-height: 87vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto 20px;
     box-sizing: border-box;
+
+    /* Remove the plain border and add a subtle shadow, rounded corners, and white background */
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    border-radius: 8px;
 
     display: flex;
     flex-direction: column;
 }
 
-/* Center and slightly space the header */
+/* Updated title styling to match the other side */
 .binder-page-container h2 {
     text-align: center;
     margin: 10px 0;
     flex: 0 0 auto;
+    font-family: sans-serif; /* or your preferred font */
+    font-size: 1.5rem;
+    color: #333;
 }
 
-/* The grid fills the remaining space in the container
-   and ensures 3 columns x 3 rows. */
+/* The grid fills the remaining space in the container and ensures a 3×3 layout */
 .binder-grid {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-
-    /* Increase gap & padding for bigger slots */
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* Each slot: bigger border, centered content */
+/* Each slot with a subtle hover effect */
 .binder-slot {
     border: 1px solid #ccc;
     background-color: #f9f9f9;
     cursor: pointer;
     overflow: hidden;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease;
 }
 
-/* Make images scale up or down within each slot */
+.binder-slot:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure images fit nicely */
 .binder-slot img {
     width: 100%;
     height: 100%;
