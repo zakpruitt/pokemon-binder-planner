@@ -1,5 +1,5 @@
+/* === Binder Page Container === */
 .binder-page-container {
-    /* Maintain the 5:7 ratio */
     aspect-ratio: 5 / 7;
     max-width: 90vw;
     max-height: 87vh;
@@ -8,7 +8,6 @@
     margin: 0 auto 20px;
     box-sizing: border-box;
 
-    /* Remove the plain border and add a subtle shadow, rounded corners, and white background */
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     background: #fff;
@@ -18,16 +17,33 @@
     flex-direction: column;
 }
 
-/* Updated title styling to match the other side */
-.binder-page-container h2 {
+/* === Page Header === */
+.binder-page-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+/* Centered Page Title */
+.binder-page-title {
+    flex-grow: 1;
     text-align: center;
-    margin: 12px 0;
-    flex: 0 0 auto;
     font-size: 1.5rem;
+    font-weight: bold;
     color: #333;
 }
 
-/* The grid fills the remaining space in the container and ensures a 3×3 layout */
+/* Page Buttons Container */
+.page-buttons {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+/* === Binder Grid (3x3 layout) === */
 .binder-grid {
     flex: 1;
     display: grid;
@@ -38,7 +54,7 @@
     box-sizing: border-box;
 }
 
-/* Each slot with a subtle hover effect */
+/* === Binder Slots === */
 .binder-slot {
     position: relative;
     border: 1px solid #ccc;
@@ -49,19 +65,20 @@
     align-items: center;
     justify-content: center;
     border-radius: 4px;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 .binder-slot:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Highlight selected slot in blue */
+/* Selected Slot */
 .binder-slot.selected {
     border: 2px solid #007bff;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
 }
 
-/* Ensure images fit nicely */
+/* Slot Image */
 .binder-slot img {
     max-width: 101%;
     max-height: 101%;
@@ -77,97 +94,7 @@
     margin: auto;
 }
 
-
-/* Container for title and add button */
-.binder-page-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    position: relative;
-}
-
-/* Center the Page Title */
-.binder-page-title {
-    text-align: center;
-    flex-grow: 1;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Add Page button (modern blue style) */
-.add-page-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add-page-button:hover {
-    background-color: #005bb5;
-}
-
-.page-buttons {
-    position: absolute;
-    right: 20px;
-    display: flex;
-    gap: 8px;
-}
-
-
-.add-page-button:hover {
-    background-color: #005bb5;
-}
-
-.delete-page-button {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.delete-page-button:hover {
-    background-color: #cc0000;
-}
-
-/* Green value button */
-.value-page-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.value-page-button:hover {
-    background-color: #218838;
-}
-
-/* Bottom-right price hover display */
+/* Price Display (Bottom Right) */
 .card-price {
     position: absolute;
     bottom: 5px;
@@ -178,4 +105,51 @@
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: bold;
+}
+
+/* === Page Buttons (Add, Delete, Value) === */
+.add-page-button,
+.delete-page-button,
+.value-page-button {
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Add Page Button */
+.add-page-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.add-page-button:hover {
+    background-color: #005bb5;
+}
+
+/* Delete Page Button */
+.delete-page-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.delete-page-button:hover {
+    background-color: #cc0000;
+}
+
+/* Value Page Button */
+.value-page-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.value-page-button:hover {
+    background-color: #218838;
 }
